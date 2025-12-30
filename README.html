@@ -1,0 +1,394 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Duplicate Finder — Bilingual User Guide (Windows) / Guide bilingue (Windows)</title>
+  <meta name="description" content="Bilingual (English/French) user guide for duplicate_finder.py — Windows, removable drives, and Android via ADB." />
+  <style>
+    :root{
+      --bg-1: #071426;
+      --bg-2: #0b2133;
+      --card: #071a2b;
+      --muted: #9fb3c6;
+      --text: #e6eef8;
+      --accent: #16a34a; /* green */
+      --accent-2: #06b6d4; /* cyan */
+      --danger: #ff6b6b;
+      --glass: rgba(255,255,255,0.03);
+      --code-bg: #021223;
+      --radius: 12px;
+      --maxw: 1100px;
+      --glass-2: rgba(255,255,255,0.02);
+      --shadow: 0 12px 40px rgba(2,6,23,0.7);
+      --mono: "SFMono-Regular", Menlo, Monaco, "Roboto Mono", "Courier New", monospace;
+    }
+
+    html,body{height:100%;margin:0}
+    body{
+      font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
+      background: radial-gradient(1200px 400px at 10% 10%, #042238 0%, transparent 10%),
+                  linear-gradient(180deg,var(--bg-1) 0%, var(--bg-2) 100%);
+      color:var(--text);
+      padding:28px;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.45;
+    }
+
+    .wrap{
+      max-width:var(--maxw);
+      margin:0 auto;
+      background: linear-gradient(180deg, rgba(8,18,28,0.9), rgba(3,10,18,0.95));
+      border-radius:var(--radius);
+      padding:26px;
+      box-shadow:var(--shadow);
+      border: 1px solid rgba(255,255,255,0.03);
+    }
+
+    header{
+      display:flex;
+      gap:18px;
+      align-items:center;
+      margin-bottom:18px;
+    }
+
+    .logo{
+      width:64px;height:64px;border-radius:12px;
+      background:linear-gradient(135deg,var(--accent-2),var(--accent));
+      display:flex;align-items:center;justify-content:center;
+      font-weight:800;color:#02141a;font-size:20px;
+      box-shadow:0 6px 18px rgba(12,60,40,0.18);
+      flex:0 0 64px;
+    }
+
+    h1{margin:0;font-size:20px;color:var(--accent);}
+    .subtitle{margin:2px 0 0;color:var(--muted);font-size:13px}
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:18px;
+      margin-top:18px;
+    }
+
+    /* Two-column bilingual layout */
+    .bilingual{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:18px;
+    }
+
+    @media (max-width:900px){
+      .bilingual{grid-template-columns: 1fr}
+    }
+
+    .card{
+      background: linear-gradient(180deg,var(--card), rgba(2,10,18,0.6));
+      border-radius:12px;
+      padding:18px;
+      border:1px solid var(--glass);
+      box-shadow: 0 8px 22px rgba(2,6,23,0.45);
+    }
+
+    h2{margin:0 0 8px;color:#cfeadf;font-size:16px}
+    h3{margin:8px 0;color:var(--accent-2);font-size:14px}
+
+    p.lead{margin:6px 0 12px;color:var(--muted)}
+    ul,ol{margin:8px 0 12px 18px;color:var(--muted)}
+    code{kbd,pre{font-family:var(--mono)}}
+    pre, code, kbd{
+      font-family:var(--mono);
+    }
+
+    pre.cmd{
+      background:var(--code-bg);
+      color:#dff4e1;
+      padding:12px;border-radius:8px;overflow:auto;
+      border:1px solid rgba(255,255,255,0.03);
+      margin:8px 0;
+    }
+
+    .btn{
+      display:inline-block;padding:8px 12px;border-radius:8px;
+      background:linear-gradient(180deg,var(--accent),#0b8f3f);
+      color:#041014;text-decoration:none;font-weight:700;
+      box-shadow: 0 6px 18px rgba(13,86,39,0.12);
+    }
+
+    .muted{
+      color:var(--muted);font-size:13px;
+    }
+
+    .note{
+      background:var(--glass-2);padding:12px;border-left:4px solid #ffc107;color:#fff;margin-top:12px;border-radius:8px;
+    }
+
+    .danger{
+      background:linear-gradient(180deg,rgba(255,107,107,0.06),rgba(255,107,107,0.02));
+      border-left:4px solid var(--danger);
+      padding:12px;border-radius:8px;color:#ffdfe0;
+      margin-top:12px;
+    }
+
+    footer{
+      margin-top:18px;color:var(--muted);font-size:13px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;
+    }
+
+    .meta{display:flex;gap:10px;align-items:center}
+    .link{color:var(--accent-2);text-decoration:none;font-weight:600}
+    .small{font-size:12px;color:var(--muted)}
+
+    /* nice list markers */
+    .steps li{margin:12px 0;padding-left:10px}
+    .code-inline{
+      background:rgba(255,255,255,0.03);padding:2px 6px;border-radius:6px;color:#d7fff0;font-family:var(--mono)
+    }
+
+    /* table of contents */
+    .toc{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+    .toc a{background:rgba(255,255,255,0.02);padding:6px 10px;border-radius:8px;color:var(--muted);text-decoration:none;font-size:13px}
+
+    /* accessibility focus */
+    a:focus{outline:3px solid rgba(6,182,212,0.18);outline-offset:2px;border-radius:6px}
+  </style>
+</head>
+<body>
+  <div class="wrap" role="main" aria-labelledby="title-main">
+    <header>
+      <div class="logo" aria-hidden="true">DF</div>
+      <div>
+        <h1 id="title-main">Duplicate Finder — Bilingual User Guide (Windows)</h1>
+        <div class="subtitle">English / Français — How to run duplicate_finder.py (local drives, removable drives, Android via ADB)</div>
+        <div class="toc" aria-hidden="false">
+          <a href="#safety">Safety / Sécurité</a>
+          <a href="#quickstart">Quick start / Démarrage rapide</a>
+          <a href="#android">Android / Android</a>
+          <a href="#troubleshooting">Troubleshooting / Dépannage</a>
+          <a href="#contact">Contact</a>
+        </div>
+      </div>
+    </header>
+
+    <section class="grid">
+      <section class="card">
+        <h2>Overview — Vue d'ensemble</h2>
+        <p class="lead">This bilingual guide explains prerequisites and steps to run <span class="code-inline">duplicate_finder.py</span> on Windows, scan removable drives, and optionally scan Android devices using ADB. / Ce guide bilingue explique les prérequis et les étapes pour exécuter <span class="code-inline">duplicate_finder.py</span> sous Windows, analyser des lecteurs amovibles et, optionnellement, des appareils Android via ADB.</p>
+
+        <div class="bilingual" aria-hidden="false">
+
+          <section class="card" lang="en" aria-labelledby="sec-quick">
+            <h3 id="sec-quick">Quick notes (English)</h3>
+            <ul class="muted">
+              <li>System: Windows 10 / 11 (recommended)</li>
+              <li>Script: <span class="code-inline">duplicate_finder.py</span></li>
+              <li>Python: 3.8+ recommended</li>
+              <li>ADB (Platform Tools) only needed to scan Android phones</li>
+            </ul>
+          </section>
+
+          <section class="card" lang="fr" aria-labelledby="sec-quick-fr">
+            <h3 id="sec-quick-fr">Notes rapides (Français)</h3>
+            <ul class="muted">
+              <li>Système : Windows 10 / 11 (recommandé)</li>
+              <li>Script : <span class="code-inline">duplicate_finder.py</span></li>
+              <li>Python : 3.8+ recommandé</li>
+              <li>ADB (Platform Tools) seulement nécessaire pour les téléphones Android</li>
+            </ul>
+          </section>
+
+        </div>
+      </section>
+
+      <section class="card" id="safety" aria-labelledby="safety-title">
+        <h2 id="safety-title">Important safety notice — Avis de sécurité important</h2>
+        <div class="danger" role="alert">
+          <strong>English:</strong> The script may offer to delete duplicate files. Always backup important data first, or run the script on a copy/test folder. Do not confirm deletions unless you have reviewed the results.
+          <br/><strong>Français :</strong> Le script peut proposer de supprimer des fichiers en double. Sauvegardez d'abord vos données importantes ou exécutez le script sur une copie/dossier de test. Ne confirmez pas les suppressions sans vérification.
+        </div>
+
+        <div style="display:flex;gap:12px;margin-top:12px;flex-wrap:wrap">
+          <a class="btn" href="https://www.python.org/downloads/windows/" target="_blank" rel="noreferrer">Download Python (official)</a>
+          <a class="btn" href="https://developer.android.com/studio/releases/platform-tools" style="background:linear-gradient(180deg,var(--accent-2),#0592a4)" target="_blank" rel="noreferrer">Download Android Platform Tools</a>
+        </div>
+      </section>
+
+      <section class="card" id="quickstart" aria-labelledby="qs-title">
+        <h2 id="qs-title">Quick start — Démarrage rapide</h2>
+        <div class="bilingual">
+
+          <section class="card" lang="en" aria-labelledby="qs-en">
+            <h3 id="qs-en">English — Fast path</h3>
+            <ol class="steps muted">
+              <li>Install Python 3.8+ and check "Add Python to PATH" during installation.</li>
+              <li>Place <span class="code-inline">duplicate_finder.py</span> in a folder (e.g. <span class="code-inline">C:\tools\duplicate-finder</span>).</li>
+              <li>Open PowerShell in that folder (Shift + Right click → "Open PowerShell window here").</li>
+              <li>Run:
+                <pre class="cmd" aria-label="Command example">python duplicate_finder.py</pre>
+              </li>
+              <li>Choose the target in the GUI: <em>Local folder</em>, <em>Removable drive</em>, or <em>Android via ADB</em>. Review results before deleting.</li>
+            </ol>
+          </section>
+
+          <section class="card" lang="fr" aria-labelledby="qs-fr">
+            <h3 id="qs-fr">Français — Chemin rapide</h3>
+            <ol class="steps muted">
+              <li>Installez Python 3.8+ et cochez « Add Python to PATH » pendant l'installation.</li>
+              <li>Placez <span class="code-inline">duplicate_finder.py</span> dans un dossier (p. ex. <span class="code-inline">C:\tools\duplicate-finder</span>).</li>
+              <li>Ouvrez PowerShell dans ce dossier (Shift + clic droit → "Open PowerShell window here").</li>
+              <li>Exécutez :
+                <pre class="cmd" aria-label="Exemple de commande">python duplicate_finder.py</pre>
+              </li>
+              <li>Choisissez la source dans l'interface : <em>Local folder</em>, <em>Removable drive</em> ou <em>Android via ADB</em>. Vérifiez les résultats avant toute suppression.</li>
+            </ol>
+          </section>
+
+        </div>
+      </section>
+
+      <section class="card" id="android" aria-labelledby="android-title">
+        <h2 id="android-title">Android via ADB — Setup / Android via ADB — Configuration</h2>
+
+        <div class="bilingual">
+
+          <section class="card" lang="en" aria-labelledby="android-en">
+            <h3 id="android-en">English — Steps</h3>
+            <ol class="steps muted">
+              <li>Download Platform Tools and extract the <span class="code-inline">platform-tools</span> folder (recommended location: <span class="code-inline">C:\platform-tools</span>).</li>
+              <li>Connect the phone via USB and enable Developer Options → USB debugging. Authorize the PC when prompted.</li>
+              <li>If the script cannot detect <span class="code-inline">adb</span>, add <span class="code-inline">C:\platform-tools</span> to your PATH or run the script from a shell where <span class="code-inline">adb</span> is available.</li>
+              <li>Note: Windows Explorer showing the phone via MTP does not imply ADB access — USB debugging is required.</li>
+            </ol>
+          </section>
+
+          <section class="card" lang="fr" aria-labelledby="android-fr">
+            <h3 id="android-fr">Français — Étapes</h3>
+            <ol class="steps muted">
+              <li>Téléchargez Platform Tools et extrayez le dossier <span class="code-inline">platform-tools</span> (emplacement recommandé : <span class="code-inline">C:\platform-tools</span>).</li>
+              <li>Connectez le téléphone en USB et activez Options pour les développeurs → Débogage USB. Autorisez le PC quand il le demande.</li>
+              <li>Si le script ne trouve pas <span class="code-inline">adb</span>, ajoutez <span class="code-inline">C:\platform-tools</span> au PATH ou lancez le script depuis un shell où <span class="code-inline">adb</span> est accessible.</li>
+              <li>Remarque : le téléphone visible via MTP dans l'Explorateur ne signifie pas que ADB est disponible — le débogage USB est nécessaire.</li>
+            </ol>
+          </section>
+
+        </div>
+      </section>
+
+      <section class="card" id="troubleshooting" aria-labelledby="troubleshoot-title">
+        <h2 id="troubleshoot-title">Troubleshooting — Dépannage</h2>
+        <div class="bilingual">
+
+          <section class="card" lang="en" aria-labelledby="tr-en">
+            <h3 id="tr-en">English</h3>
+            <ul class="muted">
+              <li>If the script doesn't run: verify <span class="code-inline">python --version</span> in PowerShell.</li>
+              <li>If <span class="code-inline">adb</span> is missing: check <span class="code-inline">C:\platform-tools\adb.exe</span> and PATH.</li>
+              <li>Long scans: many small files or large drives take time — test on a small folder first.</li>
+              <li>Permissions: admin rights are usually not required. Avoid running as admin unless needed.</li>
+            </ul>
+          </section>
+
+          <section class="card" lang="fr" aria-labelledby="tr-fr">
+            <h3 id="tr-fr">Français</h3>
+            <ul class="muted">
+              <li>Si le script ne démarre pas : vérifiez <span class="code-inline">python --version</span> dans PowerShell.</li>
+              <li>Si <span class="code-inline">adb</span> est introuvable : contrôlez <span class="code-inline">C:\platform-tools\adb.exe</span> et le PATH.</li>
+              <li>Scans longs : de nombreux petits fichiers ou de gros volumes prennent du temps — testez d'abord sur un petit dossier.</li>
+              <li>Permissions : les droits administrateur ne sont généralement pas nécessaires. N'exécutez en admin que si indispensable.</li>
+            </ul>
+          </section>
+
+        </div>
+      </section>
+
+      <section class="card" aria-labelledby="faqs-title">
+        <h2 id="faqs-title">FAQs — Questions fréquentes</h2>
+
+        <div class="bilingual">
+
+          <section class="card" lang="en" aria-labelledby="faq-en">
+            <h3 id="faq-en">English</h3>
+            <ul class="muted">
+              <li><strong>Q:</strong> I don't have ADB — can I still scan the phone?<br/><strong>A:</strong> Not reliably. ADB + USB debugging is required for filesystem access via the script.</li>
+              <li><strong>Q:</strong> Will the script permanently delete files?<br/><strong>A:</strong> Yes — deletion is permanent unless you use recovery tools. Always backup first.</li>
+              <li><strong>Q:</strong> Does the script require external Python packages?<br/><strong>A:</strong> The original README indicates it uses the standard library only. Check the script help for changes.</li>
+            </ul>
+          </section>
+
+          <section class="card" lang="fr" aria-labelledby="faq-fr">
+            <h3 id="faq-fr">Français</h3>
+            <ul class="muted">
+              <li><strong>Q :</strong> Je n'ai pas ADB — puis-je scanner le téléphone ?<br/><strong>R :</strong> Pas de manière fiable. ADB + débogage USB sont requis pour l'accès au système de fichiers via le script.</li>
+              <li><strong>Q :</strong> Le script supprime-t-il définitivement les fichiers ?<br/><strong>R :</strong> Oui — la suppression est permanente sauf recours aux outils de récupération. Sauvegardez toujours au préalable.</li>
+              <li><strong>Q :</strong> Le script nécessite-t-il des paquets Python externes ?<br/><strong>R :</strong> Le README original indique l'utilisation uniquement de la bibliothèque standard. Vérifiez l'aide du script si nécessaire.</li>
+            </ul>
+          </section>
+
+        </div>
+      </section>
+
+      <section class="card" id="examples" aria-labelledby="examples-title">
+        <h2 id="examples-title">Example workflows — Exemples d'utilisation</h2>
+
+        <div class="bilingual">
+
+          <section class="card" lang="en" aria-labelledby="ex-en">
+            <h3 id="ex-en">GUI (Quick)</h3>
+            <ol class="muted">
+              <li>Double-click <span class="code-inline">duplicate_finder.py</span>.</li>
+              <li>Choose target and wait for the scan to finish.</li>
+              <li>Review duplicates and export or delete after careful review.</li>
+            </ol>
+            <h3 style="margin-top:10px">CLI (PowerShell)</h3>
+            <pre class="cmd" aria-label="CLI example">
+cd C:\path\to\duplicate-finder
+python duplicate_finder.py
+            </pre>
+          </section>
+
+          <section class="card" lang="fr" aria-labelledby="ex-fr">
+            <h3 id="ex-fr">GUI (Rapide)</h3>
+            <ol class="muted">
+              <li>Double-cliquez sur <span class="code-inline">duplicate_finder.py</span>.</li>
+              <li>Choisissez la source et attendez la fin du scan.</li>
+              <li>Vérifiez les doublons et exportez ou supprimez seulement après vérification.</li>
+            </ol>
+            <h3 style="margin-top:10px">CLI (PowerShell)</h3>
+            <pre class="cmd" aria-label="Exemple CLI">
+cd C:\path\to\duplicate-finder
+python duplicate_finder.py
+            </pre>
+          </section>
+
+        </div>
+      </section>
+
+      <section class="card" id="contact" aria-labelledby="contact-title">
+        <h2 id="contact-title">Contributing, Support, and Contact — Contribution, support et contact</h2>
+        <p class="muted"><strong>Maintainer / Auteur:</strong> <a class="link" href="https://github.com/red923" target="_blank" rel="noreferrer">red923</a></p>
+
+        <div style="display:flex;gap:12px;flex-wrap:wrap">
+          <div class="card" style="flex:1;min-width:220px;">
+            <h3 style="margin-top:0">English</h3>
+            <p class="muted">Open an issue on GitHub with Windows version, Python version, and steps to reproduce. Attach logs or minimal examples when possible.</p>
+          </div>
+
+          <div class="card" style="flex:1;min-width:220px;">
+            <h3 style="margin-top:0">Français</h3>
+            <p class="muted">Ouvrez une issue sur GitHub avec la version de Windows, la version de Python et les étapes pour reproduire. Joignez les journaux ou un exemple minimal si possible.</p>
+          </div>
+        </div>
+
+        <p class="small" style="margin-top:12px">Optional original contact: <a class="link" href="https://web.facebook.com/regis.gakiza.9" target="_blank" rel="noreferrer">Facebook</a></p>
+      </section>
+
+    </section>
+
+    <footer>
+      <div class="meta">
+        <span class="small">File: README.html</span>
+      <div class="small">© Maintainer: <a class="link" href="https://github.com/red923" target="_blank" rel="noreferrer">red923</a></div>
+    </footer>
+  </div>
+</body>
+</html>
