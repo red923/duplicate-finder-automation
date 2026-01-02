@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-duplicate_finder_auto.py (updated)
+duplicate_finder_auto.py
 
 - PC / removable drives scanning (fast: size -> sample -> full hash)
 - Android scanning via ADB with:
